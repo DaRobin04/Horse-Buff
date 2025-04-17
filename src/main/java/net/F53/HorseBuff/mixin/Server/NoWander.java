@@ -17,7 +17,7 @@ public abstract class NoWander {
     private Vec3d lowerWanderSpeed(Vec3d input) {
         if (ModConfig.getInstance().noWander
           && (horsebuff$thiz() instanceof AbstractHorseEntity horse
-          && horse.isSaddled()))
+          && horse.hasSaddleEquipped()))
             return(Vec3d.ZERO);
         return input;
     }

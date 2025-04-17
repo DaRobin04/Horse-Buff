@@ -5,11 +5,12 @@
   "name": "HorseBuff",
   "description": "Makes Horses better by removing stupid things",
   "authors": [
-    "CodeF53#0241"
+    "CodeF53#0241",
+    "DaRobin04"
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/horsebuff",
-    "sources": "https://github.com/CodeF53/Horse-Buff"
+    "sources": "https://github.com/DaRobin04/Horse-Buff"
   },
   "license": "CC BY-NC-SA",
   "icon": "assets/horsebuff/icon.png",
@@ -29,8 +30,8 @@
     "horsebuff.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.15.11",
-    "minecraft": ">=1.21.4",
+    "fabricloader": ">=0.16.10",
+    "minecraft": ">=1.21.5",
     "java": ">=21",
     "fabric-api": "*",
     "cloth-config": "*"

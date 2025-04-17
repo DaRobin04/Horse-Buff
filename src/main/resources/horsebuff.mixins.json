@@ -11,13 +11,13 @@
   ],
   "client": [
     "Client.HeadPitchOffset",
-    "Client.HorseArmorFeatureRendererMixin",
     "Client.InventoryAccessor",
     "Client.JebHorseTintable",
     "Client.LivingEntityRendererMixin",
     "Client.LlamaDecorFeatureRendererMixin",
     "Client.RideableEquippableEntityModelMixin",
     "Client.RideableEntityRenderStateMixin",
+    "Client.SaddleFeatureRendererMixin",
     "Client.Swim",
     "Client.TransparentEquipment",
     "Client.TransparentHorseMarkings"
