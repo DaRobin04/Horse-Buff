@@ -5,9 +5,11 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "Server.AllowRaft",
+    "Server.HappyGhastEntityAccessor",
     "Server.MountedModifiers",
     "Server.NoBuck",
-    "Server.NoWander"
+    "Server.NoWander",
+    "Server.NoWanderHappyGhast"
   ],
   "client": [
     "Client.HeadPitchOffset",

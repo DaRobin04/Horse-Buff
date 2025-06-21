@@ -2,10 +2,7 @@ package net.F53.HorseBuff.utils;
 
 import net.F53.HorseBuff.config.ModConfig;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.entity.state.CamelEntityRenderState;
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
-import net.minecraft.client.render.entity.state.LivingHorseEntityRenderState;
-import net.minecraft.client.render.entity.state.LlamaEntityRenderState;
+import net.minecraft.client.render.entity.state.*;
 
 public class RenderUtils {
     public static boolean isJeb(LivingEntityRenderState entityRenderState) {
@@ -29,6 +26,9 @@ public class RenderUtils {
     public static boolean isRideableEntityRenderState(LivingEntityRenderState livingEntityRenderState) {
         return livingEntityRenderState instanceof LivingHorseEntityRenderState ||
                 livingEntityRenderState instanceof LlamaEntityRenderState ||
-                livingEntityRenderState instanceof CamelEntityRenderState;
+                livingEntityRenderState instanceof CamelEntityRenderState ||
+                livingEntityRenderState instanceof PigEntityRenderState ||
+                livingEntityRenderState instanceof StriderEntityRenderState ||
+                livingEntityRenderState instanceof HappyGhastEntityRenderState;
     }
 }

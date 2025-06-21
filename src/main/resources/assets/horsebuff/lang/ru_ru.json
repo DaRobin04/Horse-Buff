@@ -9,6 +9,9 @@
   "text.autoconfig.HorseBuff.option.noWander": "Отключить блуждание лошадей",
   "text.autoconfig.HorseBuff.option.noWander.@Tooltip": "Да — осёдланные лошади не будут блуждать.\nНет — осёдланные лошади будут блуждать.",
 
+  "text.autoconfig.HorseBuff.option.noGhastWander": "Отключить счастливое бродячее привидение",
+  "text.autoconfig.HorseBuff.option.noGhastWander.@Tooltip": "Да, запряженные счастливые призраки не будут бродить.\nНет, запряженные счастливые призраки будут бродить.",
+
   "text.autoconfig.HorseBuff.option.breakSpeed": "Снять ограничение скорости копания при езде верхом",
   "text.autoconfig.HorseBuff.option.breakSpeed.@Tooltip": "Да — Позволяет вести копание на полной скорости верхом на лошади.\nНет — Значительно замедляет скорость копания во время езды верхом (ванильное поведение).",
 

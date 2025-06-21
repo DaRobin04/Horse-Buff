@@ -9,7 +9,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
@@ -52,8 +51,8 @@ public abstract class LivingEntityRendererMixin {
                 // see net/minecraft/client/render/entity/feature/SheepWoolFeatureRenderer
                 int dyeIndex = MathHelper.floor(livingEntityRenderState.age) / 25 + extendedRideableEntityRenderState.horsebuff$getId();
                 int numDyes = DyeColor.values().length;
-                int currentDye = SheepEntity.getRgbColor(DyeColor.byIndex(dyeIndex % numDyes));
-                int nextDye = SheepEntity.getRgbColor(DyeColor.byIndex((dyeIndex + 1) % numDyes));
+                int currentDye = dyeIndex % numDyes;
+                int nextDye = (dyeIndex + 1) % numDyes;
                 float dyeTransitionProgress = ((float) (MathHelper.floor(livingEntityRenderState.age) % 25) + MathHelper.fractionalPart(livingEntityRenderState.age)) / 25.0F;
                 color = ColorHelper.lerp(dyeTransitionProgress, currentDye, nextDye);
                 // increase brightness by a bit because the horse texture is a bit dark
