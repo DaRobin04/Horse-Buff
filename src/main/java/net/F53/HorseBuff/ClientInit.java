@@ -7,12 +7,13 @@ import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 public class ClientInit implements ClientModInitializer {
-    public static KeyBinding horsePlayerInventory = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "text.HorseBuff.keybinding.horsePlayerInventory",
-            InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_LEFT_ALT,
-            "text.HorseBuff.keybinding.category"
-    ));
+    //private static final KeyBinding.Category HORSEBUFF_CATEGORY = KeyBinding.Category.create(Identifier.of("text", "HorseBuff"));
+    //public static KeyBinding horsePlayerInventory = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+    //        "text.HorseBuff.keybinding.horsePlayerInventory",
+    //        InputUtil.Type.KEYSYM,
+    //        GLFW.GLFW_KEY_LEFT_ALT,
+    //        HORSEBUFF_CATEGORY
+    //));
 
     @Override
     public void onInitializeClient() {}

@@ -14,7 +14,7 @@ public abstract class NoWanderHappyGhast {
     @Inject(method = "tick()V", at = @At("TAIL"))
     private void noWanderHasPlayerOnTop(CallbackInfo ci) {
         HappyGhastEntity ghast = horsebuff$thiz();
-        if (!ghast.getWorld().isClient()) {
+        if (!ghast.getEntityWorld().isClient()) {
             if (ModConfig.getInstance().noGhastWander
                     && ghast.isWearingBodyArmor()
                     && !ghast.hasPassengers()

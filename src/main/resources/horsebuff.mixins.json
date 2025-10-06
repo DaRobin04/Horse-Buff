@@ -19,6 +19,7 @@
     "Client.LlamaDecorFeatureRendererMixin",
     "Client.RideableEquippableEntityModelMixin",
     "Client.RideableEntityRenderStateMixin",
+    "Client.SaddleFeatureRendererAccessor",
     "Client.SaddleFeatureRendererMixin",
     "Client.Swim",
     "Client.TransparentEquipment",

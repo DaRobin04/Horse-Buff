@@ -1,13 +1,19 @@
 package net.F53.HorseBuff.utils;
 
 import net.F53.HorseBuff.config.ModConfig;
+import net.F53.HorseBuff.render.entity.state.ExtendedRideableEntityRenderState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.entity.state.*;
 
 public class RenderUtils {
     public static boolean isJeb(LivingEntityRenderState entityRenderState) {
-        return ModConfig.getInstance().jeb_Horses && entityRenderState.customName != null && "jeb_".equals(entityRenderState.customName.getString());
+        if (entityRenderState instanceof ExtendedRideableEntityRenderState extendedRideableEntityRenderState)
+        {
+            return ModConfig.getInstance().jeb_Horses && extendedRideableEntityRenderState.horsebuff$getCustomName() != null && "jeb_".equals(extendedRideableEntityRenderState.horsebuff$getCustomName());
+        }
+        return(false);
     }
+
 
     public static int getAlpha(boolean isPlayerPassenger) {
         ModConfig.FadeConfig pitchFadeConfig = ModConfig.getInstance().pitchFade;

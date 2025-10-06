@@ -5,4 +5,6 @@ public interface ExtendedRideableEntityRenderState {
     int horsebuff$getId();
     void horsebuff$setPlayerPassenger(boolean playerPassenger);
     boolean horsebuff$isPlayerPassenger();
+    void horsebuff$setCustomName(String customeName);
+    String horsebuff$getCustomName();
 }

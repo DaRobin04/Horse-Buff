@@ -31,10 +31,15 @@ public abstract class LivingEntityRendererMixin {
             boolean playerPassenger = livingEntity.hasPassenger(MinecraftClient.getInstance().player);
             ((ExtendedRideableEntityRenderState) livingEntityRenderState).horsebuff$setId(livingEntity.getId());
             ((ExtendedRideableEntityRenderState) livingEntityRenderState).horsebuff$setPlayerPassenger(playerPassenger);
+            if (livingEntity.getCustomName() != null) {
+                ((ExtendedRideableEntityRenderState) livingEntityRenderState).horsebuff$setCustomName(livingEntity.getCustomName().getString());
+            } else {
+                ((ExtendedRideableEntityRenderState) livingEntityRenderState).horsebuff$setCustomName("");
+            }
         }
     }
 
-    @Inject(method = "render(Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",
+    @Inject(method = "render(Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;Lnet/minecraft/client/render/state/CameraRenderState;)V",
             at = @At("HEAD"))
     void setAlpha(CallbackInfo ci, @Local(argsOnly = true) LivingEntityRenderState livingEntityRenderState, @Share("alpha") LocalIntRef alpha) {
         if (livingEntityRenderState instanceof ExtendedRideableEntityRenderState extendedRideableEntityRenderState) {
@@ -42,21 +47,31 @@ public abstract class LivingEntityRendererMixin {
         }
     }
 
-    @ModifyArg(method = "render(Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/EntityModel;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;III)V"),
-            index = 4)
-    int setOpacityAndChromaForRender(int color, @Local(argsOnly = true) LivingEntityRenderState livingEntityRenderState, @Share("alpha") LocalIntRef alpha) {
+    @ModifyArg(method = "render(Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;Lnet/minecraft/client/render/state/CameraRenderState;)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/ColorHelper;mix(II)I"),
+            index = 1)
+    int setColorForRender(int color, @Local(argsOnly = true) LivingEntityRenderState livingEntityRenderState, @Share("alpha") LocalIntRef alpha)
+    {
         if (isRideableEntityRenderState(livingEntityRenderState)) {
             if (isJeb(livingEntityRenderState) && livingEntityRenderState instanceof ExtendedRideableEntityRenderState extendedRideableEntityRenderState) {
                 // see net/minecraft/client/render/entity/feature/SheepWoolFeatureRenderer
-                int dyeIndex = MathHelper.floor(livingEntityRenderState.age) / 25 + extendedRideableEntityRenderState.horsebuff$getId();
+                int ageId = MathHelper.floor(livingEntityRenderState.age) / 25 + extendedRideableEntityRenderState.horsebuff$getId();
                 int numDyes = DyeColor.values().length;
-                int currentDye = dyeIndex % numDyes;
-                int nextDye = (dyeIndex + 1) % numDyes;
+                int currentDye = ageId % numDyes;
+                int nextDye = (ageId + 1) % numDyes;
                 float dyeTransitionProgress = ((float) (MathHelper.floor(livingEntityRenderState.age) % 25) + MathHelper.fractionalPart(livingEntityRenderState.age)) / 25.0F;
-                color = ColorHelper.lerp(dyeTransitionProgress, currentDye, nextDye);
+
+                int rgb1 = DyeColor.byIndex(currentDye).getEntityColor();
+                int rgb2 = DyeColor.byIndex(nextDye).getEntityColor();
+
+                float r = ColorHelper.getRed(rgb1) * (1 - dyeTransitionProgress) + ColorHelper.getRed(rgb2) * dyeTransitionProgress;
+                float g = ColorHelper.getGreen(rgb1) * (1 - dyeTransitionProgress) + ColorHelper.getGreen(rgb2) * dyeTransitionProgress;
+                float b = ColorHelper.getBlue(rgb1) * (1 - dyeTransitionProgress) + ColorHelper.getBlue(rgb2) * dyeTransitionProgress;
+
                 // increase brightness by a bit because the horse texture is a bit dark
-                color = ColorHelper.getArgb(Math.min(ColorHelper.getRed(color) * 2, 255), Math.min(ColorHelper.getGreen(color) * 2, 255), Math.min(ColorHelper.getBlue(color) * 2, 255));
+                color = ColorHelper.getArgb((int) Math.min(Math.floor(r) * 2, 255),
+                        (int) Math.min(Math.floor(g) * 2, 255),
+                        (int) Math.min(Math.floor(b) * 2, 255));
             }
             return ColorHelper.withAlpha(alpha.get(), color);
         } else {
@@ -64,7 +79,7 @@ public abstract class LivingEntityRendererMixin {
         }
     }
 
-    @ModifyArg(method = "render(Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",
+    @ModifyArg(method = "render(Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;Lnet/minecraft/client/render/state/CameraRenderState;)V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/LivingEntityRenderer;getRenderLayer(Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;ZZZ)Lnet/minecraft/client/render/RenderLayer;"),
             index = 2)
     boolean makeRenderLayerTranslucent(boolean translucent, @Local(argsOnly = true) LivingEntityRenderState livingEntityRenderState, @Share("alpha") LocalIntRef alphaRef) {

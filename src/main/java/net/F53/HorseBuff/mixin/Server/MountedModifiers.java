@@ -31,9 +31,9 @@ public abstract class MountedModifiers extends LivingEntity {
     EntityAttributeModifier horsebuff$mountedBreakSpeed = new EntityAttributeModifier(Identifier.of("horse-buff", "mounted-break-speed"), 5, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
 
     @Override
-    public boolean startRiding(Entity entity, boolean force) {
-        boolean result = super.startRiding(entity, force);
-        if (!(super.getWorld() instanceof ServerWorld && entity instanceof AbstractHorseEntity horse))
+    public boolean startRiding(Entity entity, boolean force, boolean emitEvent) {
+        boolean result = super.startRiding(entity, force, emitEvent);
+        if (!(super.getEntityWorld() instanceof ServerWorld && entity instanceof AbstractHorseEntity horse))
             return result;
 
         if (ModConfig.getInstance().stepHeight) {
@@ -48,14 +48,16 @@ public abstract class MountedModifiers extends LivingEntity {
         return result;
     }
 
+    /*
     @Override
     public boolean startRiding(Entity entity) {
-        return this.startRiding(entity, false);
+        return this.startRiding(entity, false, false);
     }
+    */
 
     @Override
     public void stopRiding() {
-        if (!(super.getWorld() instanceof ServerWorld && getVehicle() instanceof AbstractHorseEntity horse)) {
+        if (!(super.getEntityWorld() instanceof ServerWorld && getVehicle() instanceof AbstractHorseEntity horse)) {
             super.stopRiding();
             return;
         }

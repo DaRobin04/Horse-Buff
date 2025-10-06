@@ -22,6 +22,9 @@ public abstract class RideableEntityRenderStateMixin implements ExtendedRideable
     @Unique
     private boolean horsebuff$playerPassenger;
 
+    @Unique
+    private String horsebuff$customName;
+
     @Override
     public void horsebuff$setId(int id) {
         this.horsebuff$id = id;
@@ -41,4 +44,10 @@ public abstract class RideableEntityRenderStateMixin implements ExtendedRideable
     public boolean horsebuff$isPlayerPassenger() {
         return horsebuff$playerPassenger;
     }
+
+    @Override
+    public void horsebuff$setCustomName(String customName) { this.horsebuff$customName = customName; }
+
+    @Override
+    public String horsebuff$getCustomName() { return horsebuff$customName; }
 }

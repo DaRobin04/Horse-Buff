@@ -14,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = LlamaDecorFeatureRenderer.class, priority = 960)
 public class LlamaDecorFeatureRendererMixin {
 
-    @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/client/render/entity/state/LlamaEntityRenderState;Lnet/minecraft/item/ItemStack;Lnet/minecraft/registry/RegistryKey;I)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/LlamaEntityModel;setAngles(Lnet/minecraft/client/render/entity/state/LlamaEntityRenderState;)V",
-                    shift = At.Shift.AFTER))
+    @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;Lnet/minecraft/client/render/entity/state/LlamaEntityRenderState;Lnet/minecraft/item/ItemStack;Lnet/minecraft/registry/RegistryKey;I)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/equipment/EquipmentRenderer;render(Lnet/minecraft/client/render/entity/equipment/EquipmentModel$LayerType;Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;II)V",
+                    shift = At.Shift.BEFORE))
     void updatePlayerPassenger(CallbackInfo callbackInfo, @Local(argsOnly = true) LlamaEntityRenderState llamaEntityRenderState, @Local LlamaEntityModel llamaEntityModel) {
         if (llamaEntityRenderState instanceof ExtendedRideableEntityRenderState extendedRideableEntityRenderState) {
             boolean isPlayerPassenger = extendedRideableEntityRenderState.horsebuff$isPlayerPassenger();

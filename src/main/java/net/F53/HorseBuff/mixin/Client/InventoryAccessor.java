@@ -23,11 +23,11 @@ public abstract class InventoryAccessor {
     @Redirect(method = "handleInputEvents()V", at = @At(value = "INVOKE", target = "net/minecraft/client/network/ClientPlayerEntity.openRidingInventory ()V"))
     void playerInventoryAccess(ClientPlayerEntity instance) {
         assert this.player != null;
-        if (ClientInit.horsePlayerInventory.isPressed()) {
-            tutorialManager.onInventoryOpened();
-            setScreen(new InventoryScreen(this.player));
-        } else {
-            instance.openRidingInventory();
-        }
+        //if (ClientInit.horsePlayerInventory.isPressed()) {
+        //    tutorialManager.onInventoryOpened();
+        //    setScreen(new InventoryScreen(this.player));
+        //} else {
+        //    instance.openRidingInventory();
+        //}
     }
 }
